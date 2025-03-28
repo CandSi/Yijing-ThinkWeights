@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from urllib.parse import quote_plus
 import certifi,datetime
 
+
 st.set_page_config(
     page_title="易经思维哑铃",
     page_icon="☯"
@@ -21,7 +22,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.header('易经思维哑铃')
 st.text('用象数思维重构现实困境的底层逻辑')
-@st.cache_resource(show_spinner="正在连接数据库")
+@st.cache_resource(show_spinner="正在连接数据库🔌")
 def get_mongo_collection():
     try:
         secrets = st.secrets.mongodb
@@ -379,9 +380,9 @@ tabA, tabB = st.tabs(["梅花易数", "易经速查"])
 with tabA:
     st.success('数字→卦象→决策：直觉转数字，数字生卦象，卦象助决策')
     st.caption("在三个输入框里填写第一时间想到的数字,比如想到的车牌号、生日数字都可以。")
-    num1 = st.number_input("第一个数代表现状（上卦）", min_value=1, value=random.randint(1, 99))
-    num2 = st.number_input("第二个数代表本质（下卦）", min_value=1, value=random.randint(1, 99))
-    num3 = st.number_input("第三个数代表变化（动爻）", min_value=1, value=random.randint(1, 99))
+    num1 = st.number_input("第一个数代表现状（上卦）", min_value=1, max_value=999999999)
+    num2 = st.number_input("第二个数代表本质（下卦）", min_value=1, max_value=999999999)
+    num3 = st.number_input("第三个数代表变化（动爻）", min_value=1, max_value=999999999)
 
     if st.button("☯ 起卦：数字生卦象", type="primary", use_container_width=True):
         shang, xia, dong_yao = calculate_gua(num1, num2, num3)
@@ -396,6 +397,7 @@ with tabA:
         hugua_bin = calculate_gua_binary(result['互卦'][0][0],result['互卦'][1][0])
         biangua_bin = calculate_gua_binary(result['变卦'][0][0],result['变卦'][1][0])
 
+        st.success(f"你选择的三个数字：{num1}、{num2}、{num3}")
         sangua = query_gua(zhugua_bin, hugua_bin, biangua_bin)
 
         meihua_analysis(result['主卦'], result['互卦'], result['变卦'], dong_yao)
@@ -492,7 +494,7 @@ with tab3:
 
 st.text(' ')
 st.markdown("""
-            `
+            
             > 1. 本工具仅限于传统文化研习用途；
             >
             > 2. 严禁将其与封建迷信活动相关联;
@@ -500,3 +502,6 @@ st.markdown("""
             > 3. 自行承担因理解偏差产生的后果。
             `
             `""")
+
+
+
