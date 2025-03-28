@@ -9,6 +9,16 @@ st.set_page_config(
     page_icon="☯"
     
 )
+
+hide_menu_style = """
+<style>
+#mainmenu {visibility: hidden;}  
+header {visibility: hidden;}      
+</style>
+"""
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
+
 st.title('易经思维哑铃')
 st.text('用象数思维重构现实困境的底层逻辑')
 @st.cache_resource(show_spinner="正在连接数据库")
